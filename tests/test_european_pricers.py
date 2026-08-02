@@ -1,0 +1,38 @@
+"""
+测试：BS对同一份欧式期权定价结果应互相收敛
+"""
+from datetime import date
+from engine.market_data import MarketSnapshot
+from contracts.european_option import EuropeanOption
+from pricers.bs_pricer import BlackScholesPricer
+
+
+def make_market():
+    return MarketSnapshot(as_of=date(2024, 4, 1), underlying="TEST",
+                           spot=100.0, vol=0.20, rate=0.03, div_yield=0.01)
+
+
+def make_call():
+    return EuropeanOption(trade_id="T1", underlying="TEST", notional=1.0,
+                           trade_date=date(2024, 4, 1), maturity=date(2026, 4, 2),
+                           strike=100.0, option_type="call")
+
+
+def make_put():
+    return EuropeanOption(trade_id="T2", underlying="TEST", notional=1.0,
+                           trade_date=date(2024, 4, 1), maturity=date(2026, 4, 2),
+                           strike=100.0, option_type="put")
+
+
+def test_put_call_parity_bs():
+    market= make_market()
+    call= make_call()
+    put = make_put()
+    pricer = BlackScholesPricer()
+    c = pricer.price(call, market).price
+    p = pricer.price(put, market).price
+    T = call.time_to_maturity(market.as_of)
+    import math
+    lhs = c - p
+    rhs = market.spot * math.exp(-market.div_yield * T) - call.strike * math.exp(-market.rate * T)
+    assert abs(lhs - rhs) < 1e-6

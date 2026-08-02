@@ -1,0 +1,11 @@
+numpy>=1.24
+scipy>=1.10
+pandas>=2.0
+python-dateutil>=2.8
+
+# 可选：GPU 蒙特卡洛加速（未安装/无 CUDA 设备时会自动降级为 CPU 实现）
+numba>=0.58
+numba-cuda>=0.30.4
+
+# 可选：跑单元测试
+pytest>=7.0
