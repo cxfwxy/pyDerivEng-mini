@@ -40,24 +40,25 @@ equity-otc-pricer/
 │   ├── base.py               #   PricerBase / PricingResult
 │   ├── bs_pricer.py          #   BS解析解（欧式期权）
 │   ├── pde_pricer.py         #   TBD PDE CN（欧式期权）
-│   ├── mc_pricer_cpu.py      #   TBD MC CPU 实现（欧式 & 雪球）
+│   ├── mc_pricer_cpu.py      #   MC CPU 实现（欧式 & 雪球）
 │   └── mc_pricer_cuda.py     #   TBD MC GPU 实现（欧式 & 雪球）
 │
 ├── risk/                     # 风险场景
-│   ├── greeks.py             #   TBD 计算希腊值
-│   └── scenario.py           #   TBD 场景分析
+│   ├── greeks.py             #   计算希腊值
+│   └── scenario.py           #   场景分析
 │
 ├── cashflow/                 # 现金流
 │   └── cashflow_engine.py    #   TBD 计算现金流
 │
 ├── lifecycle/                # 合约生命周期
-│   └── snowball_monitor.py   #   TBD 检测雪球敲入/敲出/到期
+│   └── barrier_monitor.py    #   检测雪球敲入/敲出/到期
 │
 ├── portfolio/                # 持仓部分
-│   └── portfolio.py          #   TBD 持仓管理
+│   ├── portfolio.py          #   持仓管理
+│   └── position.py           #   持仓定义
 │
 ├── tests/                    # pytest测试
-├── run_demo.py               # demo
+├── run_demo.ipynb            # TBD
 ├── requirements.txt          # 依赖库
 └── pytest.ini
 ```
